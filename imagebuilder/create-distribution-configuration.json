@@ -1,0 +1,35 @@
+{
+    "name": "SampleDistribution",
+    "description": "Copies AMI to ap-northeast-1 and exports to S3",
+    "distributions": [
+        {
+            "region": "ap-northeast-1",
+            "amiDistributionConfiguration": {
+                "name": "Name_{{imagebuilder:buildDate}}",
+                "description": "An example image name with parameter references",
+                "amiTags": {
+                    "KeyName": "{{ssm:parameter_name}}"
+                },
+                "launchPermission": {
+                    "userIds": [
+                        "100000000001"
+                    ]
+                }
+            }
+        },
+        {
+            "region": "us-west-2",
+            "amiDistributionConfiguration": {
+                "name": "Name_{{imagebuilder:buildDate}}_{{imagebuilder:region}}",
+                "amiTags": {
+                    "KeyName": "Some value"
+                },
+                "launchPermission": {
+                    "userIds": [
+                        "100000000001"
+                    ]
+                }
+            }
+        }
+    ]
+}

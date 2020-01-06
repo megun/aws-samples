@@ -1,0 +1,14 @@
+{
+    "name": "SampleRecipe",
+    "description": "This example image recipe creates a Windows 2016 image.",
+    "semanticVersion": "0.0.1",
+    "components": [
+        {
+            "componentArn": "arn:aws:imagebuilder:ap-northeast-1:aws:component/python-3-linux/1.0.0/1"
+        },
+        {
+            "componentArn": "arn:aws:imagebuilder:ap-northeast-1:100000000001:component/run-ansible-playbook/0.0.1/1"
+        }
+    ],
+    "parentImage": "arn:aws:imagebuilder:ap-northeast-1:aws:image/amazon-linux-2-x86/x.x.x"
+}

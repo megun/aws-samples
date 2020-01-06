@@ -1,0 +1,10 @@
+{
+    "name": "run-ansible-playbook",
+    "semanticVersion": "0.0.1",
+    "platform": "Linux",
+    "uri": "s3://megun-imagebuilder-samples/component.yaml",
+    "tags": {
+        "Key1": "Value1",
+        "Key2": "Value2"
+    }
+}

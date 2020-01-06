@@ -1,0 +1,15 @@
+{
+    "name": "SampleInfrastructure",
+    "description": "An example that will retain instances of failed builds",
+    "instanceTypes": [
+        "t3.micro"
+    ],
+    "instanceProfileName": "poweruser",
+    "logging": {
+        "s3Logs": {
+            "s3BucketName": "megun-imagebuilder-samples",
+            "s3KeyPrefix": "logs"
+        }
+    },
+    "terminateInstanceOnFailure": false
+}

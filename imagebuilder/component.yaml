@@ -1,0 +1,38 @@
+name: ExecuteAnsiblePlaybookDocument
+description: This is Execute AnsiblePlaybook document.
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+      - name: UpdateOS
+        action: UpdateOS
+      - name: InstallPackages
+        action: ExecuteBash
+        inputs:
+          commands:
+            - 'sudo yum -y install git'
+            - 'sudo amazon-linux-extras install ansible2=2.8 -y'
+      - name: GetGitAccessToken
+        action: ExecuteBash
+        inputs:
+          commands:
+            - 'aws ssm get-parameter --name github-readonly-accesstoken --with-decryption --query Parameter.Value --output text --region ap-northeast-1'
+      - name: GetAnsibleVaultPass
+        action: ExecuteBash
+        inputs:
+          commands:
+            - 'aws ssm get-parameter --name vaultpass --with-decryption --query Parameter.Value --output text --region ap-northeast-1'
+      - name: CloneGitRepository
+        action: ExecuteBash
+        onFailure: Continue
+        inputs:
+          commands:
+            - 'git clone https://megun:{{build.GetGitAccessToken.outputs.stdout}}@github.com/megun/ansible-samples.git'
+      - name: ExecuteAnsiblePlaybook
+        action: ExecuteBash
+        inputs:
+          commands:
+            - 'cd ansible-samples'
+            - 'echo {{build.GetAnsibleVaultPass.outputs.stdout}} > .vault_pass.txt'
+            - 'ansible-playbook -i localhost, -c local playbooks/common.yml'
